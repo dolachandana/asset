@@ -1,7 +1,7 @@
 ﻿
 using System.Security.Cryptography.X509Certificates;
 
-List<gadget> gadlist = new List<gadget>();
+List<gadget> gadlist = new List<gadget>();//Parent-class List
 int day=0;
 
 while (true)
@@ -122,10 +122,10 @@ Console.WriteLine("Type".PadRight(6) +
           );
 
 
-List<gadget> sortedgad = gadlist.OrderBy(n => n.type).ToList();
-List<gadget> sorteddate = sortedgad.OrderBy(n => n.dt).ToList();
-List<gadget> sortedoffice = sorteddate.OrderBy(n => n.office).ToList();
-List<gadget> sorteddt = sortedoffice.OrderBy(n => n.dt).ToList();
+List<gadget> sortedgad = gadlist.OrderBy(n => n.type).ToList();//sorted with class
+List<gadget> sorteddate = sortedgad.OrderBy(n => n.dt).ToList();//sorted with purchasedate
+List<gadget> sortedoffice = sorteddate.OrderBy(n => n.office).ToList();//sorted with office
+List<gadget> sorteddt = sortedoffice.OrderBy(n => n.dt).ToList();//sorted with purchasedate
 Console.WriteLine("---------------------------------------------------------------------------------");
 
 
@@ -153,14 +153,14 @@ foreach (var g in sorteddt)
     DateTime dt2 = DateTime.Now;
     var dt3 = g.dt;
     TimeSpan diff = dt2 - dt3;
-    if (diff.TotalDays>=1005 && diff.TotalDays <= 1095)
+    if (diff.TotalDays>=1005 && diff.TotalDays <= 1095)// mark as red if purchase date is less than 3 months away from 3 years.
     {
         Console.ForegroundColor = ConsoleColor.Red;
 
         Console.WriteLine(g.type.PadRight(10) + g.brand.PadRight(10) + g.model.PadRight(10) + g.office.PadRight(10) + g.dt.ToString("yyyy-MM-dd").PadRight(20) + g.price.ToString().PadRight(14) + g.currency.PadRight(13) + g.todayprice);
     Console.ResetColor();
     }
-    else if(diff.TotalDays >= 915 && diff.TotalDays<=1005)
+    else if(diff.TotalDays >= 915 && diff.TotalDays<=1005)//mark yellow  if date less than 6 months away from 3 years
     {
         Console.ForegroundColor = ConsoleColor.Yellow;
 
